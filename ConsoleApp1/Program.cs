@@ -118,8 +118,8 @@ public class Logic
                         using HttpResponseMessage responsePost = await client.PutAsync(url, null);
                         responsePost.EnsureSuccessStatusCode();
                         string responsePostBody = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine("responsePostBody");
-                        Console.WriteLine(responsePostBody);
+                        Console.WriteLine("change reservation spot");
+                        //Console.WriteLine(responsePostBody);
 
                     }
                 }
@@ -141,7 +141,6 @@ public class Logic
                     }
                 }
 
-
                 //set reservations to avaliableFromEarlier
                 var futureStartReseravation = reservations.Where(x => x.IsStarted == false && x.StartReservationPeriod > DateTime.Now).ToList();
                 if (futureStartReseravation != null && futureStartReseravation.Count > 0)
@@ -153,7 +152,7 @@ public class Logic
                             if (futureStartReseravation[i].Spot.IsFree == true)
                             {
                                 using HttpResponseMessage response4 = await client.PutAsync("https://localhost:44351/canStartEarly/" + futureStartReseravation[i].Id, null);
-                                Console.WriteLine(response4);
+                                //Console.WriteLine(response4);
                                 //set reservation to avaliableFromEarlier
                             }
                         }
@@ -167,7 +166,7 @@ public class Logic
                     for (int i = 0; i < blockedReservations.Count; i++)
                     {
                         using HttpResponseMessage response4 = await client.PutAsync("https://localhost:44351/failReservation/" + blockedReservations[i].Id, null);
-                        Console.WriteLine(response4);
+                      //  Console.WriteLine(response4);
                     }
                 }
             }
